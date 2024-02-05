@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
+{% block style %}
+<style>
+    form {width : 370px; margin : 100px auto;}
+    form div {margin-bottom: 5px;}
+    form label {font-weight: bold; width: 110px; text-align: right }
+    form button:first-child {margin-left:230px}
+</style>
+{% endblock %}
+
 {% block main %}
 <main>
     <h2>로그인</h2>
