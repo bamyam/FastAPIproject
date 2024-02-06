@@ -3,7 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class Member(BaseModel) :
+class Member(BaseModel):
     mno: int
     userid: str
     passwd: str
@@ -13,6 +13,7 @@ class Member(BaseModel) :
 
     class Config:
         from_attributes = True
+
 
 class NewMember(BaseModel):
     userid: str
