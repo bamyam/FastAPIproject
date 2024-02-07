@@ -54,27 +54,17 @@
         <tr>
             <th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회</th>
         </tr>
+
+        {% for bd in bdlist %}
         <tr>
-            <td>1</td><td><a href="/board/view">노는게 제일 좋아 친구들 모여라노는게 제일 좋아 친구들 모여라노는게 제일 좋아 친구들 모여라</a></td><td>작성자</td><td>작성일</td><td>조회</td>
+            <td>{{ bd.bno }}</td>
+            <td><a href="/board/view">{{ bd.title }}</a></td>
+            <td>{{ bd.userid }}</td>
+            <td>{{ bd.regdate.strftime('%Y-%m-%d') }}</td>
+            <td>{{ bd.views }}</td>
         </tr>
-        <tr>
-            <td>2</td><td>제목</td><td>작성자</td><td>작성일</td><td>조회</td>
-        </tr>
-        <tr>
-            <td>3</td><td>제목</td><td>작성자</td><td>작성일</td><td>조회</td>
-        </tr>
-        <tr>
-            <td>4</td><td>제목</td><td>작성자</td><td>작성일</td><td>조회</td>
-        </tr>
-        <tr>
-            <td>5</td><td>제목</td><td>작성자</td><td>작성일</td><td>조회</td>
-        </tr>
-        <tr>
-            <td>6</td><td>제목</td><td>작성자</td><td>작성일</td><td>조회</td>
-        </tr>
-        <tr>
-            <td>7</td><td>제목</td><td>작성자</td><td>작성일</td><td>조회</td>
-        </tr>
+        {% endfor  %}
+
     </table>
     <ul class="pagination justify-content-center mt-4">
         <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
