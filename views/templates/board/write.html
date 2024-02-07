@@ -23,8 +23,8 @@
                                          value="abc123" readonly class="form-control"></div>
         </div>
         <div class="row">
-            <div class="col-auto"><label for="textarea"  class="col-form-label">본문</label></div>
-            <div class="col-auto"><textarea type="text" name="textarea" id="textarea" rows="7" cols="45"
+            <div class="col-auto"><label for="contents"  class="col-form-label">본문</label></div>
+            <div class="col-auto"><textarea type="text" name="contents" id="contents" rows="7" cols="45"
                                             class="form-control"></textarea></div>
         </div>
         <div class="row">
@@ -32,9 +32,42 @@
             <div class="col-auto"><img src="{{ url_for('static', path='/img/captcha.png') }}" id="captcha" alt=""></div>
         </div>
         <div class="row">
-            <div class="col-auto"><label for="subm"  class="col-form-label"></label></div>
-            <div class="col-auto"><button type="button" name="subm" id="subm" class="btn btn-primary">글쓰기</button></div>
+            <div class="col-auto"><label for="writebtn"  class="col-form-label"></label></div>
+            <div class="col-auto">
+                <button type="button" name="writebtn" id="writebtn" class="btn btn-primary">입력완료</button>
+                <button type="button" name="resetbtn" id="resetbtn" class="btn btn-primary">다시쓰기</button>
+            </div>
         </div>
     </form>
 </main>
+{% endblock %}
+
+{% block script %}
+<script>
+    let writebtn = document.querySelector('#writebtn');
+    let boardfrm = document.boardfrm;
+    writebtn.addEventListener('click', () => {
+        const formData = new FormData(boardfrm);
+
+        let jsondata = {};
+        formData.forEach((val, key) => {
+           jsondata[key] = val
+        });
+
+        fetch('http://127.0.0.1:8000/board/write', {
+            method: 'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsondata),
+            redirect: 'follow'  // 서버에서 전송한 상태코드, url에 따름
+        })
+            .then((res) => {
+                // 상태코드가 3xx라면 지정한 페이지로 이동
+                if (res.redirected) location.href = res.url;
+            })
+            .catch((err) => console.log(err));
+    })
+</script>
 {% endblock %}

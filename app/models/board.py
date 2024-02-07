@@ -7,7 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     pass
 
-class Member(Base):
+class Board(Base):
     __tablename__ = 'board'
 
     bno = Column(Integer, primary_key=True, autoincrement=True)
