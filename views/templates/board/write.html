@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+    form {width: 510px; /*border: 1px solid red;*/ margin: 100px auto;}
+    form div {margin-bottom: 10px;}
+    div label {width: 100px;display: inline-block; text-align: right}
+    form button:first-child {margin-left: 145px;}
+</style>
+{% endblock %}
+
+{% block main %}
+<main>
+    <h2>게시판 새글쓰기</h2>
+    <form name="boardfrm">
+        <div class="row">
+            <div class="col-auto"><label for="title" class="col-form-label">제목</label></div>
+            <div class="col-auto"><input type="text" name="title" id="title" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="userid"  class="col-form-label">작성자</label></div>
+            <div class="col-auto"><input type="text" name="userid" id="userid"
+                                         value="abc123" readonly class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="textarea"  class="col-form-label">본문</label></div>
+            <div class="col-auto"><textarea type="text" name="textarea" id="textarea" rows="7" cols="45"
+                                            class="form-control"></textarea></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="captcha"  class="col-form-label">자동가입방지</label></div>
+            <div class="col-auto"><img src="{{ url_for('static', path='/img/captcha.png') }}" id="captcha" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="subm"  class="col-form-label"></label></div>
+            <div class="col-auto"><button type="button" name="subm" id="subm" class="btn btn-primary">글쓰기</button></div>
+        </div>
+    </form>
+</main>
+{% endblock %}
