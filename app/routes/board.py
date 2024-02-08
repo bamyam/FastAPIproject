@@ -4,6 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import status
 
+from math import ceil
+
 from app.schemas.board import NewBoard
 from app.services.board import BoardService
 
@@ -37,8 +39,11 @@ board_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 @board_router.get('/list/{cpg}', response_class=HTMLResponse)
 def list(req: Request, cpg: int):
     stpg = int((cpg - 1) / 10) * 10 + 1 # 페이지네이션 시작값
-    bdlist = BoardService.select_board(cpg)
-    return templates.TemplateResponse('board/list.html', {'request': req, 'bdlist':bdlist, 'cpg':cpg, 'stpg':stpg})
+    bdlist, cnt = BoardService.select_board(cpg)
+    allpage = ceil(cnt / 25) # 총 페이지수
+    return templates.TemplateResponse(
+        'board/list.html', {'request': req, 'bdlist':bdlist,
+            'cpg':cpg, 'stpg':stpg, 'allpage' : allpage})
 
 
 @board_router.get('/write', response_class=HTMLResponse)
