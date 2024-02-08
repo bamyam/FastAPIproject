@@ -21,10 +21,24 @@ board_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 # ...
 # npage : ((n-1) * 25) + 1 ~ ((n-1) * 25) + 25
 
+# 페이지네이션 알고리즘
+# 현재 페이지에 따라 보여줄 페이지 블럭 결정
+# ex) 총 페이지 수 : 27일 때
+# cpg = 1: 12345678910
+# cpg = 2: 12345678910
+# cpg = 9: 12345678910
+# cpg = 11: 11 12 13 14 15 16 17 18 19 20
+# cpg = 15: 11 12 13 14 15 16 17 18 19 20
+# cpg = 23 : 21 22 ... 27
+
+# cpg = n : m m+1 m+2 ... m+9
+# 따라서, cpg의 값에 따라 페이지블록의 수
+# m = ((cpg - 1) / 10) * 10 + 1
 @board_router.get('/list/{cpg}', response_class=HTMLResponse)
 def list(req: Request, cpg: int):
+    stpg = int((cpg - 1) / 10) * 10 + 1 # 페이지네이션 시작값
     bdlist = BoardService.select_board(cpg)
-    return templates.TemplateResponse('board/list.html', {'request': req, 'bdlist':bdlist, 'cpg':cpg})
+    return templates.TemplateResponse('board/list.html', {'request': req, 'bdlist':bdlist, 'cpg':cpg, 'stpg':stpg})
 
 
 @board_router.get('/write', response_class=HTMLResponse)
