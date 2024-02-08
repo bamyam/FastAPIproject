@@ -41,6 +41,6 @@ class BoardService():
     def selectone_board(bno):
         with Session() as sess:
             stmt = select(Board).filter_by(bno=bno)
-            result = sess.exec(stmt)
+            result = sess.execute(stmt).first()
         return result
 

@@ -2,15 +2,15 @@
 
 {% block style %}
 <style>
-    div {border : 1px solid black}
     #view div {margin-bottom: 5px}
 
     #view label {width: 110px; text-align:right ; font-weight: bold; margin-right: 15px;}
-    #content span {display: inline-block; width:480px; height:450px; border: 1px solid red;}
+    #content span {display: inline-block; width:480px; height:450px; border:1px solid black; border-radius: 7px;
+        padding: 7px}
     /*.dragup {vertical-align: top}*/
 
     /*버튼들*/
-    #view div:last-child {width : 630px; text-align: right; margin-right: 10px}
+    #view > div:last-child {width : 630px; text-align: right; margin-right: 10px}
 </style>
 {% endblock %}
 
@@ -20,22 +20,19 @@
     <div class="w-75 container" id="view">
         <div class="row">
             <div class="col-auto"><label>제   목</label></div>
-            <div class="col-auto"><span>시간은 금이라구!</span></div>
+            <div class="col-auto"><span>{{ bd.title}}</span></div>
         </div>
         <div class="row">
             <div class="col-auto"><label>작  성  자</label></div>
-            <div class="col-auto"><span>시간은 금이라구!</span></div>
+            <div class="col-auto"><span>{{ bd.userid }}</span></div>
         </div>
         <div class="row">
             <div class="col-auto"><label>작  성  일</label></div>
-            <div class="col-auto"><span>시간은 금이라구!</span></div>
+            <div class="col-auto"><span>{{ bd.regdate.strftime('%Y-%m-%d %H:%M:%S') }} ({{ bd.views }})</span></div>
         </div>
         <div class="row">
             <div  class="col-auto"><label>본   문</label></div>
-            <div id="content" class="col-auto text-start"><span id="cnts">시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!
-                        시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!
-                        시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!
-                        시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!시간은 금이라구!</span></div>
+            <div id="content" class="col-auto text-start"><span id="cnts">{{ bd.contents }}</span></div>
         </div>
         <div>
             <button type="button" class="btn btn-success"><i class="bi bi-list"></i> 목록으로</button>
