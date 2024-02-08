@@ -38,7 +38,6 @@ class BoardService():
 
         return result, cnt
 
-
     @staticmethod
     def selectone_board(bno):
         with Session() as sess:
@@ -46,6 +45,25 @@ class BoardService():
             result = sess.execute(stmt).first()
         return result
 
+    @staticmethod
+    def find_select_board(ftype, fkey):
+        with Session() as sess:
+            stnum = 0
+            # cnt = sess.query(func.count(Board.bno)).scalar() # 총 게시글 수
+
+            stmt = select(Board.bno, Board.title, Board.userid,
+                          Board.regdate, Board.views)
+
+            # 동적 쿼리 작성 - 조건에 따라 where절이 바뀜
+            myfilter = Board.title.like(fkey)
+            if ftype == 'userid':  myfilter = Board.userid.like(fkey)
+            elif ftype == 'contents':  myfilter = Board.contents.like(fkey)
+
+            stmt = stmt.filter(myfilter)\
+                .order_by(Board.bno.desc()).offset(stnum).limit(25)
+            result = sess.execute(stmt)
+
+        return result
 
     @staticmethod
     def update_count_board(bno):

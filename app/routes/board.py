@@ -46,6 +46,15 @@ def list(req: Request, cpg: int):
             'cpg':cpg, 'stpg':stpg, 'allpage' : allpage})
 
 
+@board_router.get('/list/{ftype}/{fkey}/{cpg}', response_class=HTMLResponse)
+def find(req: Request, ftype: str, fkey: str):
+    # stpg = int((cpg - 1) / 10) * 10 + 1 # 페이지네이션 시작값
+    bdlist = BoardService.find_select_board(ftype, '%' + fkey + '%')
+    # allpage = ceil(cnt / 25) # 총 페이지수
+    return templates.TemplateResponse(
+        'board/list.html', {'request': req, 'bdlist':bdlist, 'cpg':1, 'stpg':1, 'allpage' : 10})
+
+
 @board_router.get('/write', response_class=HTMLResponse)
 def write(req: Request):
     return templates.TemplateResponse('board/write.html', {'request': req})
