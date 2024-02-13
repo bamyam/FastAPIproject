@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -7,7 +9,14 @@ from app.dbfactory import db_startup
 from app.routes.board import board_router
 from app.routes.member import member_router
 
-app = FastAPI()
+
+# 서버 시작 시 디비생성
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    db_startup()
+
+app = FastAPI(lifespan=lifespan)
 
 # jinja2 설정
 templates = Jinja2Templates(directory='views/templates')
@@ -17,10 +26,7 @@ app.mount('/static', StaticFiles(directory='views/static'), name='static')
 app.include_router(member_router)
 app.include_router(board_router, prefix='/board')
 
-# 서버 시작 시 디비생성
-@app.on_event('startup')
-async def on_startup():
-    db_startup()
+
 
 
 @app.get("/", response_class=HTMLResponse)
