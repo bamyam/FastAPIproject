@@ -75,7 +75,7 @@
         {% else %}
         <li class="page-item">
         {% endif %}
-            <a class="page-link" href="/board/list/{{ cpg - 1 }}">이전</a></li>
+            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}">이전</a></li>
 
         {% for idx in range(stpg, stpg + 10) %}
             <!-- idx가  allpage보다 같거나 작으면 페이지네이션 출력 -->
@@ -85,7 +85,7 @@
                     {% else %}
                 <li class="page-item">
                 {% endif %}
-                <a class="page-link" href="/board/list/{{ idx }}">{{ idx }}</a></li>
+                <a class="page-link" href="{{ baseurl }}{{ idx }}">{{ idx }}</a></li>
             {% endif %}
         {% endfor %}
 
@@ -94,7 +94,7 @@
             {% else %}
         <li class="page-item">
             {% endif %}
-        <a class="page-link" href="/board/list/{{ cpg + 1 }}">다음</a></li>
+        <a class="page-link" href="{{ baseurl }}{{ cpg + 1 }}">다음</a></li>
     </ul>
 </main>
 {% endblock %}
