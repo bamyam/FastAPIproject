@@ -40,13 +40,15 @@
             <td colspan="2" class="searchbox">
                 <div class="row">
                     <div class="col-auto">
-                        <select class="form-select">
-                            <option>본문</option><option>작성자</option>
-                            <option>제목+본문</option><option>댓글내용</option>
+                        <select class="form-select" name="ftype" id="ftype">
+                            <option value="context">본문</option><option value="context">작성자</option>
+                            <option value="title">제목</option><option value="titcounts">제목 + 본문</option>
+                            <option value="commdngs">댓글내용</option>
                         </select>
                     </div>
-                    <div class="col-auto"><input type="text" name="search" id="search" class="form-control"></div>
-                    <div class="col-auto"><button type="button" class="btn btn-success">검색하기</button></div>
+                    <div class="col-auto"><input type="text" name="fkey" id="fkey" class="form-control"></div>
+                    <div class="col-auto"><button type="button" id="findbtn"
+                                                  class="btn btn-success">검색하기</button></div>
                 </div>
             </td>
             <td colspan="3"><a href="/board/write" class="btn btn-dark text-white">글쓰기</a></td>
@@ -95,4 +97,19 @@
         <a class="page-link" href="/board/list/{{ cpg + 1 }}">다음</a></li>
     </ul>
 </main>
+{% endblock %}
+
+{% block script %}
+<script>
+    let findbtn = document.querySelector('#findbtn');
+    findbtn.addEventListener('click', () => {
+        let ftype = document.querySelector('#ftype').value;
+        let fkey = document.querySelector('#fkey').value;
+
+        let params = `/${ftype}/${fkey}/1`;
+        let findurl = 'http://127.0.0.1:8000/board/list'+params;
+        location.href = findurl;
+    })
+</script>
+
 {% endblock %}
