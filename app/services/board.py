@@ -1,3 +1,4 @@
+import requests
 from sqlalchemy import insert, select, update, func, or_
 
 from app.dbfactory import Session
@@ -8,6 +9,7 @@ class BoardService():
     @staticmethod
     def board_convert(bdto):
         data = bdto.model_dump()
+        data.pop('response')  # captcha 확인용 변수 response는 제거
         bd = Board(**data)
         data = {'userid':bd.userid, 'title':bd.title, 'contents':bd.contents}
         return data
@@ -74,4 +76,19 @@ class BoardService():
             result = sess.execute(stmt)
             sess.commit()
         return result
+
+    #google recaptcha 확인 url
+    # https://www.google.com/recaptcha/api/siteverify?secret=비밀키&response=응답토큰
+    @staticmethod
+    def check_captcha(bdto):
+        data = bdto.model_dump()    # 클라이언트가 보낸 객체를 dict로 변환
+        req_url = 'https://www.google.com/recaptcha/api/siteverify'
+        params = { 'secret' : '',
+                   'response': data['response'] }
+        res = requests.get(req_url, params=params)
+        result = res.json()
+        # print('check', result)
+
+        # return result['success']
+        return True
 
