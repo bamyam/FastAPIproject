@@ -28,6 +28,12 @@ class GalleryService():
             result = sess.execute(stmt)
             sess.commit()
 
+            data = {'fname': fname, 'fsize': fsize, 'gno': result.inserted_primary_key[0]}
+            print(result.inserted_primary_key)
+            stmt = insert(GalAttach).values(data)
+            result = sess.execute(stmt)
+            sess.commit()
+
         return result
 
     @staticmethod
