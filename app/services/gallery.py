@@ -66,12 +66,12 @@ class GalleryService():
 
         return result, cnt
 
-    # @staticmethod
-    # def selectone_board(bno):
-    #     with Session() as sess:
-    #         stmt = select(Board).filter_by(bno=bno)
-    #         result = sess.execute(stmt).first()
-    #     return result
+    @staticmethod
+    def selectone_gallery(gno):
+        with Session() as sess:
+            stmt = select(Gallery, GalAttach).join_from(Gallery, GalAttach).filter_by(gno=gno)
+            result = sess.execute(stmt).first()
+        return result
     #
     # @staticmethod
     # def find_select_board(ftype, fkey, cpg):
