@@ -29,13 +29,6 @@
 <main>
     <h2>갤러리 목록</h2>
     <table class="table-bordered w-75 container mt-5" id="board">
-        <colgroup><!-- table-fixed 속성이 설정된 경우, 각 컬럼에 대한 스타일 지정 -->
-            <col style="width:10%">
-            <col style="">
-            <col style="width:15%">
-            <col style="width:15%">
-            <col style="width:10%">
-        </colgroup>
         <tr>
             <td colspan="2" class="searchbox">
                 <div class="row">
@@ -53,21 +46,21 @@
             </td>
             <td colspan="3"><a href="/gallery/write" class="btn btn-dark text-white">글쓰기</a></td>
         </tr>
-        <tr>
-            <th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회</th>
-        </tr>
-
-        {% for bd in bdlist %}
-        <tr>
-            <td>{{ bd.bno }}</td>
-            <td><a href="/board/view/{{ bd.bno }}">{{ bd.title }}</a></td>
-            <td>{{ bd.userid }}</td>
-            <td>{{ bd.regdate.strftime('%Y-%m-%d') }}</td>
-            <td>{{ bd.views }}</td>
-        </tr>
-        {% endfor  %}
-
     </table>
+
+    <div class="row justify-content-center">
+        {% for idx in range(1, 25) %}
+        <div class="col-10 card m-2" style="width: 18rem">
+            <img src="http://localhost/cdn/oxfordshirt.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">갤러리 제목</h5>
+                <div><span>작성자 : 작성자</span><span>작성일 : 20204402</span></div>
+                <div><span><i class="bi bi-eye"></i> 1234</span></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div><!-- 갤러리 이미지 리스트 -->
+
     <ul class="pagination justify-content-center mt-4">
 <!--        현재 페이지가 1이라면 이전 버튼 비활성-->
         {% if cpg == 1 %}
