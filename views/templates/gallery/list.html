@@ -49,13 +49,13 @@
     </table>
 
     <div class="row justify-content-center">
-        {% for idx in range(1, 25) %}
+        {% for gal in gallist %}
         <div class="col-10 card m-2" style="width: 18rem">
-            <img src="http://localhost/cdn/oxfordshirt.jpg" class="card-img-top" alt="...">
+            <img src="http://localhost/cdn/{{ gal.fname }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">갤러리 제목</h5>
-                <div><span>작성자 : 작성자</span><span>작성일 : 20204402</span></div>
-                <div><span><i class="bi bi-eye"></i> 1234</span></div>
+                <h5 class="card-title">{{ gal.title }}</h5>
+                <div><span>{{ gal.userid }}</span><span>작성일 : {{ gal.regdate }}</span></div>
+                <div><span><i class="bi bi-eye"></i> {{ gal.views }}</span></div>
             </div>
         </div>
         {% endfor %}
