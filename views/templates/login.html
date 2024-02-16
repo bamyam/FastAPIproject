@@ -12,7 +12,7 @@
 {% block main %}
 <main>
     <h2>로그인</h2>
-    <form id="loginfrm">
+    <form name="loginfrm">
         <div class="row">
             <div class="col-auto"><label for="userid" class="col-form-label">아이디</label></div>
             <div class="col-auto"><input type="text" name="userid" id="userid" class="form-control"></div>
@@ -21,7 +21,19 @@
             <div class="col-auto"><label for="passwd" class="col-form-label">비밀번호</label></div>
             <div class="col-auto"><input type="text" name="passwd" id="passwd" class="form-control"></div>
         </div>
-        <div><button type="submit" class="btn btn-primary"><i class="bi bi-check-all"></i> 로그인</button></div>
+        <div><button type="button" class="btn btn-primary" id="loginbtn"><i class="bi bi-check-all"></i> 로그인</button></div>
     </form>
 </main>
+{% endblock %}
+
+{% block script %}
+<script>
+    let loginbtn = document.querySelector("#loginbtn");
+    let loginfrm = document.loginfrm;
+
+    loginbtn.addEventListener('click', () => {
+        loginfrm.method = 'post';
+        loginfrm.submit();
+    })
+</script>
 {% endblock %}
