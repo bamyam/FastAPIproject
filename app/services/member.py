@@ -25,3 +25,13 @@ class MemberService():
 
         return result
 
+    @staticmethod
+    def check_login(userid, passwd):
+        with Session() as sess:
+            # Member테이블에서 아이디로 회원조회 후
+            result = sess.query(Member).filter_by(userid=userid).scalar()
+            # 실제 회원이 존재하고 비밀번호가 일치한다면
+            if result and passwd == result.passwd:
+                return result
+        return None
+
