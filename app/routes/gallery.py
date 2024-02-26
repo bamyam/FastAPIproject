@@ -15,7 +15,7 @@ gallery_router = APIRouter()
 
 # jinja2 설정
 templates = Jinja2Templates(directory='views/templates')
-gallery_router.mount('/static', StaticFiles(directory='views/static'), name='static')
+# gallery_router.mount('/static', StaticFiles(directory='views/static'), name='static')
 
 
 @gallery_router.get('/list/{cpg}', response_class=HTMLResponse)
